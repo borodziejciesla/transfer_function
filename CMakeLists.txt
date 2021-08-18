@@ -34,6 +34,10 @@ target_include_directories(${PROJECT_NAME}
         include/
 )
 
+############### Static Analysis ###############
+include(cppcheck)
+include(cpplint)
+
 ################ Unit Tests ###################
 if(BUILD_TESTS)
     if(UNIX)
@@ -55,3 +59,25 @@ if(BUILD_TESTS)
         add_subdirectory(tests)
     endif()
 endif() #   BUILD_TESTS
+
+########### CodeCoverage ##############
+if(UNIX)
+    if (CMAKE_BUILD_TYPE STREQUAL "Coverage")
+        include(CodeCoverage)
+        
+        set(COVERAGE_EXCLUDES
+            '/usr/*'
+            '${PROJECT_SOURCE_DIR}/tests/*'
+            '${CMAKE_BINARY_DIR}/googletest-src/googletest/include/gtest/*'
+            '${CMAKE_BINARY_DIR}/googletest-src/googletest/src/*'
+            '${CMAKE_BINARY_DIR}/googletest-src/googlemock/include/gmock/*'
+            '${CMAKE_BINARY_DIR}/googletest-src/googlemock/src/*'
+        )
+        setup_target_for_coverage(coverage ${TEST_PROJECT_NAME} ${PROJECT_NAME})
+
+        set_target_properties(${PROJECT_NAME}
+            PROPERTIES
+            COMPILE_FLAGS "-g -O0 -fprofile-arcs -ftest-coverage"
+        )
+    endif() #CMAKE_BUILD_TYPE STREQUAL "Coverage"
+endif() # UNIX
