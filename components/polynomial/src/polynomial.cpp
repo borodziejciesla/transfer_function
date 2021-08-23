@@ -75,14 +75,14 @@ namespace tf_core
         return Polynomial(new_coeficients);
     }
 
-    Polynomial & Polynomial::operator*=(const float & rhs) {
+    Polynomial & Polynomial::operator*=(const float rhs) {
         auto mult = (*this) * rhs;
         this->coefficients_ = mult.coefficients_;
 
         return (*this);
     }
 
-    Polynomial Polynomial::operator/(const float & rhs) const {
+    Polynomial Polynomial::operator/(const float rhs) const {
         if (std::abs(rhs) < 1e-9f)
             throw std::invalid_argument("Polynomial::operator/(const float & rhs) ; division by something close to 0.0f");
         
@@ -93,16 +93,11 @@ namespace tf_core
         return Polynomial(new_coeficients);
     }
 
-    Polynomial & Polynomial::operator/=(const float & rhs) {
+    Polynomial & Polynomial::operator/=(const float rhs) {
         auto div = (*this) / rhs;
         this->coefficients_ = div.coefficients_;
 
         return (*this);
-    }
-
-    Polynomial operator*=(const float lhs, const Polynomial & rhs) {
-        auto mult = rhs * lhs;
-        return mult;
     }
 
     const Polynomial::Coefficients & Polynomial::GetCoefficients(void) const {
@@ -112,5 +107,4 @@ namespace tf_core
     size_t Polynomial::GetPolynomialOrder(void) const {
         return coefficients_.size();
     }
-
 }   // tf_core

@@ -35,11 +35,14 @@ namespace tf_core
             Polynomial operator*(const Polynomial & rhs) const;
             Polynomial & operator*=(const Polynomial & rhs);
             Polynomial operator*(const float & rhs) const;
-            Polynomial & operator*=(const float & rhs);
-            Polynomial operator/(const float & rhs) const;
-            Polynomial & operator/=(const float & rhs);
+            Polynomial & operator*=(const float rhs);
+            Polynomial operator/(const float rhs) const;
+            Polynomial & operator/=(const float rhs);
 
-            friend Polynomial operator*=(const float lhs, const Polynomial & rhs);
+            friend Polynomial operator*=(const float lhs, const Polynomial & rhs) {
+                auto mult = rhs * lhs;
+                return mult;
+            }
 
             const Coefficients & GetCoefficients(void) const;
             size_t GetPolynomialOrder(void) const;
