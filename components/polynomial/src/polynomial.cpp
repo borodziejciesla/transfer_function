@@ -69,8 +69,11 @@ namespace tf_core
 
     Polynomial Polynomial::operator*(const float & rhs) const {
         Coefficients new_coeficients = this->coefficients_;
-        for (auto & coefficient : new_coeficients)
-            coefficient *= rhs;
+        std::transform(new_coeficients.begin(), new_coeficients.end(), new_coeficients.begin(),
+            [=](auto coefficient) {
+                return coefficient * rhs;
+            }
+        );
 
         return Polynomial(new_coeficients);
     }
@@ -87,8 +90,11 @@ namespace tf_core
             throw std::invalid_argument("Polynomial::operator/(const float & rhs) ; division by something close to 0.0f");
         
         Coefficients new_coeficients = this->coefficients_;
-        for (auto & coefficient : new_coeficients)
-            coefficient /= rhs;
+        std::transform(new_coeficients.begin(), new_coeficients.end(), new_coeficients.begin(),
+            [=](auto coefficient) {
+                return coefficient / rhs;
+            }
+        );
 
         return Polynomial(new_coeficients);
     }

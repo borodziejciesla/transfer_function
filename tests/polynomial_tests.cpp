@@ -132,6 +132,26 @@ TEST_F(PolynomialTests, TestOperatorMultiplyEqualPolynomials) {
     EXPECT_EQ(a.GetCoefficients(), expected_result);
 }
 
+TEST_F(PolynomialTests, TestOperatorMultiplyFloatPolynomials) {
+    tf_core::Polynomial a({1.0f, 2.0f});
+    const float b = 2.0f;
+
+    auto mult = a * b;
+
+    std::vector<float> expected_result{2.0f, 4.0f};
+    EXPECT_EQ(mult.GetCoefficients(), expected_result);
+}
+
+TEST_F(PolynomialTests, TestOperatorMultiplyEqualFloatPolynomials) {
+    tf_core::Polynomial a({1.0f, 2.0f});
+    const float b = 2.0f;
+
+    a *= b;
+
+    std::vector<float> expected_result{2.0f, 4.0f};
+    EXPECT_EQ(a.GetCoefficients(), expected_result);
+}
+
 TEST_F(PolynomialTests, TestOperatorDivide) {
     tf_core::Polynomial a({3.0f, 6.0f});
     const float b = 3.0f;
@@ -151,3 +171,18 @@ TEST_F(PolynomialTests, TestOperatorDivideEqual) {
     std::vector<float> expected_result{1.0f, 2.0f};
     EXPECT_EQ(a.GetCoefficients(), expected_result);
 }
+
+TEST_F(PolynomialTests, TestOperatorDivideByZero) {
+    tf_core::Polynomial a({3.0f, 6.0f});
+    const float b = 0.0f;
+
+    EXPECT_THROW(auto div = a / b, std::invalid_argument);
+}
+
+TEST_F(PolynomialTests, TestOperatorDivideEqualByZero) {
+    tf_core::Polynomial a({3.0f, 6.0f});
+    const float b = 0.0f;
+
+    EXPECT_THROW(a /= b, std::invalid_argument);
+}
+
