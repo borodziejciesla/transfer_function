@@ -34,6 +34,8 @@ target_include_directories(${PROJECT_NAME}
         include/
 )
 
+add_subdirectory(components)
+
 ############### Static Analysis ###############
 include(cppcheck)
 include(cpplint)
