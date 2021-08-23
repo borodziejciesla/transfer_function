@@ -43,18 +43,18 @@ namespace tf_core
     }
 
     Polynomial & Polynomial::operator-=(const Polynomial & rhs) {
-        auto sum = (*this) + rhs;
+        auto sum = (*this) - rhs;
         this->coefficients_ = sum.GetCoefficients();
         return *this;
     }
 
     Polynomial Polynomial::operator*(const Polynomial & rhs) const {
-        auto new_polynomial_size = this->GetPolynomialOrder() + rhs.GetPolynomialOrder();
+        auto new_polynomial_size = this->GetPolynomialOrder() + rhs.GetPolynomialOrder() - 1u;
         Coefficients new_coeficients(new_polynomial_size, 0.0f);
 
         for (auto a_idx = 0u; a_idx < this->GetPolynomialOrder(); a_idx++) {
             for (auto b_idx = 0u; b_idx < rhs.GetPolynomialOrder(); b_idx++) {
-                new_coeficients.at(a_idx + b_idx) = this->coefficients_.at(a_idx) * rhs.coefficients_.at(b_idx);
+                new_coeficients.at(a_idx + b_idx) += this->coefficients_.at(a_idx) * rhs.coefficients_.at(b_idx);
             }
         }
 
