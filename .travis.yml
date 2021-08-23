@@ -32,4 +32,4 @@ after_success:
 - bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports"
 
 notifications:
-z    - rozewicz.maciej@gmail.com
+    - rozewicz.maciej@gmail.com
