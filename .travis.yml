@@ -2,7 +2,6 @@ language: cpp
 
 os: linux
 dist: focal
-sudo: true
 
 compiler: gcc
 
