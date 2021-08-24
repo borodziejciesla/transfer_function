@@ -38,11 +38,10 @@ install:
 - touch $HOME/.cache/mydependency.so
 
 script:
-  - set -euo pipefail
-  - mkdir -p build && cd build
-  - cmake -DCMAKE_BUILD_TYPE=Coverage ..
-  - cmake --build . -- -j $(nproc)
-  - ./tests/transfer_function_tests
+  - mkdir -p build
+  - cmake -DCMAKE_BUILD_TYPE=Coverage -S . -B build
+  - cmake --build build -- -j $(nproc)
+  - .build/tests/transfer_function_tests
 
 after_success:
 # Create lcov report
