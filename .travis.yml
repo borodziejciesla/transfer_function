@@ -38,7 +38,7 @@ install:
 
 script:
   - sudo mkdir -p build
-  - sudo cd build
+  - cd build
   - sudo cmake -DCMAKE_BUILD_TYPE=Coverage ..
   - sudo make
   - sudo make coverage
