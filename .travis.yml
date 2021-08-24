@@ -1,6 +1,10 @@
 language: cpp
+
 os: linux
 dist: focal
+
+compiler: gcc
+
 addons:
   apt:
     sources:
@@ -9,17 +13,17 @@ addons:
       - g++-10
       - gcc-10
       - lcov
-compiler: gcc
 
 cache: # see https://docs.travis-ci.com/user/caching/
 - directories:
   - $HOME/.cache
 
-addons:
-  apt:
-    packages: lcov
+#before_install:
+  
 
-before_install:
+install:
+# (fake) install dependencies (usually involves wget, configure, make, ...)
+# install into cache folder (build binaries+headers only, no sources and do NOT build there)
   - sudo apt-get update
   - sudo apt install build-essential
   - sudo apt-get install libgtest-dev
@@ -28,20 +32,16 @@ before_install:
   - sudo cmake CMakeLists.txt
   - sudo make
   - sudo cp lib/*.a /usr/lib
-  - cd
-  - chmod +x build.sh
-
-install:
-# (fake) install dependencies (usually involves wget, configure, make, ...)
-# install into cache folder (build binaries+headers only, no sources and do NOT build there)
-- mkdir -p $HOME/.cache
-- touch $HOME/.cache/mydependency.so
+  - mkdir -p $HOME/.cache
+  - touch $HOME/.cache/mydependency.so
 
 script:
   - mkdir -p build
-  - cmake -DCMAKE_BUILD_TYPE=Coverage -S . -B build
-  - cmake --build build -- -j $(nproc)
-  - .build/tests/transfer_function_tests
+  - cd build
+  - cmake -DCMAKE_BUILD_TYPE=Coverage ..
+  - make
+  - make coverage
+  - ./tests/transfer_function_tests
 
 after_success:
 # Create lcov report
