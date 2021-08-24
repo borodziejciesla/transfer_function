@@ -37,7 +37,11 @@ install:
 - mkdir -p $HOME/.cache
 - touch $HOME/.cache/mydependency.so
 
-script: ./build.sh
+script:
+  - mkdir -p build && cd build
+  - cmake -DCMAKE_BUILD_TYPE=Coverage ..
+  - cmake --build . -- -j $(nproc)
+  - ./tests/transfer_function_tests
 
 after_success:
 # Create lcov report
