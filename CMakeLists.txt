@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.16 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.12 FATAL_ERROR)
 
 set(PROJECT_NAME transfer_function)
 set(TEST_PROJECT_NAME ${PROJECT_NAME}_tests)
