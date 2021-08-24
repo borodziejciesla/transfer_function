@@ -24,17 +24,8 @@ cache: # see https://docs.travis-ci.com/user/caching/
 install:
 # (fake) install dependencies (usually involves wget, configure, make, ...)
 # install into cache folder (build binaries+headers only, no sources and do NOT build there)
-  - sudo apt-get update
-  - sudo apt install build-essential
-  - sudo apt-get install libgtest-dev
-  - sudo apt-get install cmake
-  - cd /usr/src/gtest
-  - sudo cmake CMakeLists.txt
-  - sudo make
-  - sudo cp lib/*.a /usr/lib
   - mkdir -p $HOME/.cache
   - touch $HOME/.cache/mydependency.so
-  - cd $HOME
 
 script:
   - sudo mkdir -p build
