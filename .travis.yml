@@ -38,6 +38,7 @@ install:
 - touch $HOME/.cache/mydependency.so
 
 script:
+  - set -euo pipefail
   - mkdir -p build && cd build
   - cmake -DCMAKE_BUILD_TYPE=Coverage ..
   - cmake --build . -- -j $(nproc)
