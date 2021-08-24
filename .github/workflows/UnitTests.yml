@@ -25,17 +25,6 @@ jobs:
         sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-10 100 --slave /usr/bin/g++ g++ /usr/bin/g++-10 --slave /usr/bin/gcov gcov /usr/bin/gcov-10
         sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 90 --slave /usr/bin/g++ g++ /usr/bin/g++-9 --slave /usr/bin/gcov gcov /usr/bin/gcov-9
 
-    - name: Install gtest
-      run: |
-        sudo apt-get install libgtest-dev
-        sudo apt-get install cmake
-        cd /usr/src/gtest
-        sudo cmake CMakeLists.txt
-        sudo make
-        sudo cp lib/*.a /usr/lib
-        #sudo ln -s /usr/lib/libgtest.a /usr/local/lib/gtest/libgtest.a
-        #sudo ln -s /usr/lib/libgtest_main.a /usr/local/lib/gtest/libgtest_main.a
-
     - name: Install cppcheck and cpplint
       run: |
         sudo apt-get install cppcheck

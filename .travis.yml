@@ -28,12 +28,12 @@ install:
   - touch $HOME/.cache/mydependency.so
 
 script:
-  - sudo mkdir -p build
+  - mkdir -p build
   - cd build
-  - sudo cmake -DCMAKE_BUILD_TYPE=Coverage ..
-  - sudo make
-  - sudo make coverage
-  - sudo ./tests/transfer_function_tests
+  - cmake -DCMAKE_BUILD_TYPE=Coverage ..
+  - make
+  - make coverage
+  - ./tests/transfer_function_tests
 
 after_success:
 # Create lcov report
