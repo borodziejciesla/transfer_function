@@ -30,6 +30,7 @@ before_install:
   - sudo cmake CMakeLists.txt
   - sudo make
   - sudo cp lib/*.a /usr/lib
+  - cd
 
 install:
 # (fake) install dependencies (usually involves wget, configure, make, ...)
