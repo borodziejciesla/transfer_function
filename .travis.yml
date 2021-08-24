@@ -31,6 +31,7 @@ before_install:
   - sudo make
   - sudo cp lib/*.a /usr/lib
   - cd
+  - chmod +x build.sh
 
 install:
 # (fake) install dependencies (usually involves wget, configure, make, ...)
