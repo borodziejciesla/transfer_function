@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.12 FATAL_ERROR)
 
 set(PROJECT_NAME transfer_function)
 set(TEST_PROJECT_NAME ${PROJECT_NAME}_tests)
+
 project(${PROJECT_NAME})
 
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
@@ -40,47 +41,36 @@ add_subdirectory(components)
 include(cppcheck)
 include(cpplint)
 
-################ Unit Tests ###################
-if(BUILD_TESTS)
-    enable_testing()
-
-    include(FetchContent)
-    FetchContent_Declare(
-        googletest
-        GIT_REPOSITORY https://github.com/google/googletest.git
-        GIT_TAG        703bd9caab50b139428cea1aaff9974ebee5742e # release-1.10.0
-    )
-    set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-    FetchContent_MakeAvailable(googletest)
-    
-    if(UNIX)
-        find_package(GTest REQUIRED)
-        include_directories(${GTEST_INCLUDE_DIR})
-    else()
-        include(GoogleTest)   
-    endif()
-
-    add_subdirectory(tests)
-endif() #   BUILD_TESTS
-
 ########### CodeCoverage ##############
 if(UNIX)
     if (CMAKE_BUILD_TYPE STREQUAL "Coverage")
         include(CodeCoverage)
+
+        SET(CMAKE_CXX_FLAGS "-g -O0 -fprofile-arcs -ftest-coverage")
         
         set(COVERAGE_EXCLUDES
-            '/usr/*'
-            '${PROJECT_SOURCE_DIR}/tests/*'
-            '${CMAKE_BINARY_DIR}/googletest-src/googletest/include/gtest/*'
-            '${CMAKE_BINARY_DIR}/googletest-src/googletest/src/*'
-            '${CMAKE_BINARY_DIR}/googletest-src/googlemock/include/gmock/*'
-            '${CMAKE_BINARY_DIR}/googletest-src/googlemock/src/*'
+            #'/usr/*'
+            #'src/gtest*'
+            #'${PROJECT_SOURCE_DIR}/tests/*'
+            #'${CMAKE_BINARY_DIR}/googletest-src/*'
+            #'${CMAKE_BINARY_DIR}/googletest-src/googletest/include/gtest/*'
+            #'${CMAKE_BINARY_DIR}/googletest-src/googletest/src/*'
+            #'${CMAKE_BINARY_DIR}/googletest-src/googlemock/include/gmock/*'
+            #'${CMAKE_BINARY_DIR}/googletest-src/googlemock/src/*'
         )
-        setup_target_for_coverage(coverage ${TEST_PROJECT_NAME} ${PROJECT_NAME})
-
-        set_target_properties(${PROJECT_NAME}
-            PROPERTIES
-            COMPILE_FLAGS "-g -O0 -fprofile-arcs -ftest-coverage"
-        )
+        setup_target_for_coverage(
+            coverage
+            ${TEST_PROJECT_NAME}
+            ${PROJECT_NAME}_coverage_report
+        ) 
     endif() #CMAKE_BUILD_TYPE STREQUAL "Coverage"
 endif() # UNIX
+
+################ Unit Tests ###################
+if(BUILD_TESTS)    
+    project(${TEST_PROJECT_NAME})
+
+    add_subdirectory(tests)    
+    enable_testing()
+    add_test(${TEST_PROJECT_NAME} ${TEST_PROJECT_NAME})    
+endif() #   BUILD_TESTS
