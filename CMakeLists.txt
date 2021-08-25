@@ -48,16 +48,6 @@ if(UNIX)
 
         SET(CMAKE_CXX_FLAGS "-g -O0 -fprofile-arcs -ftest-coverage")
         
-        set(COVERAGE_EXCLUDES
-            #'/usr/*'
-            #'src/gtest*'
-            #'${PROJECT_SOURCE_DIR}/tests/*'
-            #'${CMAKE_BINARY_DIR}/googletest-src/*'
-            #'${CMAKE_BINARY_DIR}/googletest-src/googletest/include/gtest/*'
-            #'${CMAKE_BINARY_DIR}/googletest-src/googletest/src/*'
-            #'${CMAKE_BINARY_DIR}/googletest-src/googlemock/include/gmock/*'
-            #'${CMAKE_BINARY_DIR}/googletest-src/googlemock/src/*'
-        )
         setup_target_for_coverage(
             coverage
             ${TEST_PROJECT_NAME}
