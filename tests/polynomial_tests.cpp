@@ -186,3 +186,47 @@ TEST_F(PolynomialTests, TestOperatorDivideEqualByZero) {
     EXPECT_THROW(a /= b, std::invalid_argument);
 }
 
+TEST_F(PolynomialTests, TestEqualityOperatorEqual) {
+    tf_core::Polynomial a({3.0f, 6.0f});
+    tf_core::Polynomial b({3.0f, 6.0f});
+
+    EXPECT_TRUE(a == b);
+}
+
+TEST_F(PolynomialTests, TestEqualityOperatorNonequalSameSize) {
+    tf_core::Polynomial a({3.0f, 6.0f});
+    tf_core::Polynomial b({4.0f, 6.0f});
+
+    EXPECT_FALSE(a == b);
+}
+
+TEST_F(PolynomialTests, TestEqualityOperatorNonequalDifferentSize) {
+    tf_core::Polynomial a({3.0f, 6.0f});
+    tf_core::Polynomial b({4.0f, 6.0f, 7.0f});
+
+    EXPECT_FALSE(a == b);
+}
+
+TEST_F(PolynomialTests, TestPowerZero) {
+    tf_core::Polynomial a({3.0f, 6.0f});
+    auto result = a.Power(0u);
+
+    auto expected_result = tf_core::Polynomial({1.0f});
+    EXPECT_EQ(result, expected_result);
+}
+
+TEST_F(PolynomialTests, TestPowerOne) {
+    tf_core::Polynomial a({3.0f, 6.0f});
+    auto result = a.Power(1u);
+
+    auto expected_result = a;
+    EXPECT_EQ(result, expected_result);
+}
+
+TEST_F(PolynomialTests, TestPowerTwo) {
+    tf_core::Polynomial a({3.0f, 6.0f});
+    auto result = a.Power(2u);
+
+    auto expected_result = tf_core::Polynomial({9.0f, 36.0f, 36.0f});
+    EXPECT_EQ(result, expected_result);
+}

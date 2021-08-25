@@ -39,10 +39,14 @@ namespace tf_core
             Polynomial operator/(const float rhs) const;
             Polynomial & operator/=(const float rhs);
 
+            bool operator==(const Polynomial & rhs) const;
+
             friend Polynomial operator*=(const float lhs, const Polynomial & rhs) {
                 auto mult = rhs * lhs;
                 return mult;
             }
+
+            Polynomial Power(const size_t n) const;
 
             const Coefficients & GetCoefficients(void) const;
             size_t GetPolynomialOrder(void) const;

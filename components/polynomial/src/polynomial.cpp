@@ -106,6 +106,19 @@ namespace tf_core
         return (*this);
     }
 
+    bool Polynomial::operator==(const Polynomial & rhs) const {
+        return this->coefficients_ == rhs.coefficients_;
+    }
+
+    Polynomial Polynomial::Power(const size_t n) const {
+        auto output = Polynomial({1.0f});
+
+        for (auto i = 0u; i < n; i++)
+            output *= (*this);
+
+        return output;
+    }
+
     const Polynomial::Coefficients & Polynomial::GetCoefficients(void) const {
         return coefficients_;
     }
