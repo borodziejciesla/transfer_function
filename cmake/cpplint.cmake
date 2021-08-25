@@ -1,6 +1,6 @@
 # Additional target to perform cpplint run, requires cppcheck
 
-if(UNIX)
+if(UNIX AND MAKE_CPPLINT)
     # Get all project files
     file(GLOB_RECURSE ALL_SOURCE_FILES *.cpp *.hpp)
 

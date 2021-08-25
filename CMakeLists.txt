@@ -22,6 +22,8 @@ endif()
 set(CMAKE_CXX_OUTPUT_EXTENSION_REPLACE ON)
 
 option(BUILD_TESTS "Build tests" ON)
+option(MAKE_CPPCHECK "Make static code analysis" OFF)
+option(MAKE_CPPLINT "Make code style analysis" OFF)
 
 ########### Add sources and includes ###########
 include(GNUInstallDirs)

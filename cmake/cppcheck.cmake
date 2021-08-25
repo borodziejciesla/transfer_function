@@ -1,6 +1,6 @@
 # Additional target to perform cppcheck run, requires cppcheck
 
-if(UNIX)
+if(UNIX AND MAKE_CPPCHECK)
     # Get all project files
     file(GLOB_RECURSE ALL_SOURCE_FILES *.cpp *.hpp)
 
