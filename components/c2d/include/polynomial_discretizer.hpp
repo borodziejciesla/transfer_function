@@ -15,6 +15,7 @@
 
 #include "discretization_method.hpp"
 #include "polynomial.hpp"
+#include "polynomial_fraction.hpp"
 
 namespace tf_core
 {
@@ -31,6 +32,8 @@ namespace tf_core
                 const DiscretizationMethod discretization_method);
 
         private:
+            static PolynomialFraction GetApproximation(const float discretization_time,
+                const DiscretizationMethod discretization_method);
     };
 }   //  namespace tf_core
 

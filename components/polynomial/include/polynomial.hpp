@@ -23,7 +23,7 @@ namespace tf_core
             Polynomial(const Polynomial & polynomial) = default;
             Polynomial(Polynomial && polynomial) = default;
             ~Polynomial(void) = default;
-            Polynomial & operator=(const Polynomial & polynomial) = delete;
+            Polynomial & operator=(const Polynomial & polynomial) = default;
             Polynomial & operator=(Polynomial && polynomial) = delete;
 
             explicit Polynomial(const Coefficients & coefficients);
