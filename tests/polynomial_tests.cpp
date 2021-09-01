@@ -26,7 +26,7 @@ TEST_F(PolynomialTests, TestExplicitConstructorConstructor) {
 }
 
 TEST_F(PolynomialTests, TestExplicitConstructorConstructorWithUnnecessary) {
-    std::vector<float> coefficients = {0.0f, 0.0f, 1.0f, 2.0f, 3.0f};
+    std::vector<float> coefficients = {1.0f, 2.0f, 3.0f, 0.0f, 0.0f};
     EXPECT_NO_THROW(auto tf = std::make_unique<tf_core::Polynomial>(coefficients));
 }
 
