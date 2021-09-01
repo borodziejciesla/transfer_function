@@ -190,29 +190,36 @@ TEST_P(PolynomialDiscretizerTests, TestZeroOrderPolynomial) {
     auto discretization_time = 0.5f;
     auto method = GetParam();
 
-    auto [num, den] = tf_core::PolynomialDiscretizer::Discretize(polynomial, discretization_time, method);
-
     switch (GetParam()) {
         case tf_core::DiscretizationMethod::Forward:
         {
+            auto [num, den] = tf_core::PolynomialDiscretizer::Discretize(polynomial, discretization_time, method);
             EXPECT_EQ(num, polynomial);
             EXPECT_EQ(den, tf_core::Polynomial({1.0f}));
             break;
         }
         case tf_core::DiscretizationMethod::Backward:
         {
+            auto [num, den] = tf_core::PolynomialDiscretizer::Discretize(polynomial, discretization_time, method);
             EXPECT_EQ(num, polynomial);
             EXPECT_EQ(den, tf_core::Polynomial({1.0f}));
             break;
         }
         case tf_core::DiscretizationMethod::Tustin:
         {
+            auto [num, den] = tf_core::PolynomialDiscretizer::Discretize(polynomial, discretization_time, method);
             EXPECT_EQ(num, polynomial);
             EXPECT_EQ(den, tf_core::Polynomial({1.0f}));
             break;
         }
+        default:
+        {
+            EXPECT_THROW(tf_core::PolynomialDiscretizer::Discretize(polynomial, discretization_time, method), std::invalid_argument);
+        }
     }
 }
+
+//TEST_P(PolynomialDiscretizerTests, )
 
 INSTANTIATE_TEST_CASE_P(
     PolynomialDiscretizerTestsMethods,
@@ -220,6 +227,7 @@ INSTANTIATE_TEST_CASE_P(
     ::testing::Values(
         tf_core::DiscretizationMethod::Forward,
         tf_core::DiscretizationMethod::Backward,
-        tf_core::DiscretizationMethod::Tustin
+        tf_core::DiscretizationMethod::Tustin,
+        static_cast<tf_core::DiscretizationMethod>(4u)
     )
 );
