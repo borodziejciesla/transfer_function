@@ -20,9 +20,13 @@ namespace tf_core
             PolynomialFraction(const Polynomial & num, const Polynomial & den);
             ~PolynomialFraction(void) = default;
 
+            PolynomialFraction operator+(const PolynomialFraction & rhs) const;
             PolynomialFraction & operator+=(const PolynomialFraction & rhs);
+            PolynomialFraction operator-(const PolynomialFraction & rhs) const;
             PolynomialFraction & operator-=(const PolynomialFraction & rhs);
             PolynomialFraction operator*(const float & rhs);
+            bool operator==(const PolynomialFraction & rhs) const;
+            bool operator!=(const PolynomialFraction & rhs) const;
 
             PolynomialFraction Power(const size_t n);
             

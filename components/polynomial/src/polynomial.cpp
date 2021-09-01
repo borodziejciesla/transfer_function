@@ -12,6 +12,7 @@ namespace tf_core
 
     Polynomial::Polynomial(const Polynomial::Coefficients & coefficients)
         : coefficients_{coefficients} {
+        ReduceUnnecessaryElements();
     }
 
     Polynomial Polynomial::operator+(const Polynomial & rhs) const {
@@ -28,6 +29,7 @@ namespace tf_core
     Polynomial & Polynomial::operator+=(const Polynomial & rhs) {
         auto sum = (*this) + rhs;
         this->coefficients_ = sum.GetCoefficients();
+        ReduceUnnecessaryElements();
         return *this;
     }
 
@@ -45,6 +47,7 @@ namespace tf_core
     Polynomial & Polynomial::operator-=(const Polynomial & rhs) {
         auto sum = (*this) - rhs;
         this->coefficients_ = sum.GetCoefficients();
+        ReduceUnnecessaryElements();
         return *this;
     }
 
@@ -64,6 +67,7 @@ namespace tf_core
     Polynomial & Polynomial::operator*=(const Polynomial & rhs) {
         auto mult = (*this) * rhs;
         this->coefficients_ = mult.coefficients_;
+        ReduceUnnecessaryElements();
         return *this;
     }
 
@@ -81,6 +85,7 @@ namespace tf_core
     Polynomial & Polynomial::operator*=(const float rhs) {
         auto mult = (*this) * rhs;
         this->coefficients_ = mult.coefficients_;
+        ReduceUnnecessaryElements();
 
         return (*this);
     }
@@ -102,6 +107,7 @@ namespace tf_core
     Polynomial & Polynomial::operator/=(const float rhs) {
         auto div = (*this) / rhs;
         this->coefficients_ = div.coefficients_;
+        ReduceUnnecessaryElements();
 
         return (*this);
     }
@@ -125,5 +131,29 @@ namespace tf_core
 
     size_t Polynomial::GetPolynomialOrder(void) const {
         return coefficients_.size();
+    }
+
+    void Polynomial::ReduceUnnecessaryElements(void) {
+        auto unnecessery_elements_number = 0u;
+
+        for (auto it = coefficients_.rbegin(); it != coefficients_.rend(); it++) {
+            if (*it == 0.0f)
+                unnecessery_elements_number++;
+            else
+                break;
+        }
+
+        if ((unnecessery_elements_number > 0u) && (unnecessery_elements_number < coefficients_.size()))
+        {
+            coefficients_.resize(coefficients_.size() - unnecessery_elements_number);
+        }
+        else if (unnecessery_elements_number == coefficients_.size())
+        {
+            coefficients_ = {0.0f};
+        }
+        else
+        {
+            // Do nothing
+        }
     }
 }   // tf_core

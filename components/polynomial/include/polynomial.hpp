@@ -52,6 +52,8 @@ namespace tf_core
             size_t GetPolynomialOrder(void) const;
 
         private:
+            void ReduceUnnecessaryElements(void);
+
             Coefficients coefficients_;
     };
 }   //  namespace tf_core

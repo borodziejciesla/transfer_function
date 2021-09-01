@@ -7,28 +7,47 @@ namespace tf_core
         , den_{den} {
     }
 
-    PolynomialFraction & PolynomialFraction::operator+=(const PolynomialFraction & rhs) {
+    PolynomialFraction PolynomialFraction::operator+(const PolynomialFraction & rhs) const {
         auto new_den = this->den_ * rhs.den_;
         auto new_num = this->num_ * rhs.den_ + this->den_ * rhs.num_;
 
-        this->num_ = new_num;
-        this->den_ = new_den;
+        return PolynomialFraction(new_num, new_den);
+    }
+
+    PolynomialFraction & PolynomialFraction::operator+=(const PolynomialFraction & rhs) {
+        auto sum = (*this) + rhs;
+        
+        this->num_ = sum.GetNum();
+        this->den_ = sum.GetDen();
 
         return (*this);
     }
 
-    PolynomialFraction & PolynomialFraction::operator-=(const PolynomialFraction & rhs) {
+    PolynomialFraction PolynomialFraction::operator-(const PolynomialFraction & rhs) const {
         auto new_den = this->den_ * rhs.den_;
         auto new_num = this->num_ * rhs.den_ - this->den_ * rhs.num_;
 
-        this->num_ = new_num;
-        this->den_ = new_den;
+        return PolynomialFraction(new_num, new_den);
+    }
+
+    PolynomialFraction & PolynomialFraction::operator-=(const PolynomialFraction & rhs) {
+        auto diff = (*this) - rhs;
+
+        this->num_ = diff.GetNum();
+        this->den_ = diff.GetDen();
 
         return (*this);
     }
 
     PolynomialFraction PolynomialFraction::operator*(const float & rhs) {
         return PolynomialFraction(num_ * rhs, den_);
+    }
+
+    bool PolynomialFraction::operator==(const PolynomialFraction & rhs) const {
+        return (this->num_ == rhs.num_) && (this->den_ == rhs.den_);
+    }
+    bool PolynomialFraction::operator!=(const PolynomialFraction & rhs) const {
+        return !(*this == rhs);
     }
 
     PolynomialFraction PolynomialFraction::Power(const size_t n) {
