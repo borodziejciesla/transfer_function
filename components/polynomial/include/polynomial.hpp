@@ -23,7 +23,7 @@ namespace tf_core
             Polynomial(const Polynomial & polynomial) = default;
             Polynomial(Polynomial && polynomial) = default;
             ~Polynomial(void) = default;
-            Polynomial & operator=(const Polynomial & polynomial) = delete;
+            Polynomial & operator=(const Polynomial & polynomial) = default;
             Polynomial & operator=(Polynomial && polynomial) = delete;
 
             explicit Polynomial(const Coefficients & coefficients);
@@ -39,15 +39,21 @@ namespace tf_core
             Polynomial operator/(const float rhs) const;
             Polynomial & operator/=(const float rhs);
 
+            bool operator==(const Polynomial & rhs) const;
+
             friend Polynomial operator*=(const float lhs, const Polynomial & rhs) {
                 auto mult = rhs * lhs;
                 return mult;
             }
 
+            Polynomial Power(const size_t n) const;
+
             const Coefficients & GetCoefficients(void) const;
             size_t GetPolynomialOrder(void) const;
 
         private:
+            void ReduceUnnecessaryElements(void);
+
             Coefficients coefficients_;
     };
 }   //  namespace tf_core
