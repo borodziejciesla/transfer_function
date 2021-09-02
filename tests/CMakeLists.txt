@@ -16,12 +16,14 @@ FetchContent_MakeAvailable(googletest)
 # Tests
 ################################
 add_executable(${TEST_PROJECT_NAME}
+    core_transfer_function_tests.cpp
     discretizer_tests.cpp
     polynomial_tests.cpp
     transfer_function_tests.cpp
 
     $<TARGET_OBJECTS:c2d>
     $<TARGET_OBJECTS:polynomial>
+    $<TARGET_OBJECTS:tf>
     $<TARGET_OBJECTS:transfer_function>
 )
 
@@ -31,5 +33,6 @@ target_link_libraries(${TEST_PROJECT_NAME}
     
     c2d
     polynomial
+    tf
     transfer_function
 )
