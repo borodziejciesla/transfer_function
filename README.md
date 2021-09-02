@@ -3,4 +3,11 @@
 [![codecov](https://codecov.io/gh/borodziejciesla/transfer_function/branch/main/graph/badge.svg?token=A1E2F7U1A4)](https://codecov.io/gh/borodziejciesla/transfer_function)
 
 # transfer_function
-Transfer function C++ library
+This is C++ library which provides set of opertions on transfer functions.
+Those are operations like:
+  * calculate transfer functions of series/parrallel/feedback connection (in future),
+  * discretize transfer function (in future),
+  * analyse stability (in future),
+  * calculate step/impulse response (in future),
+  * calculate Bode/Nyquist plot (in future),
+  * simulation of discrete transfer function (in future). 
