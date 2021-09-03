@@ -4,6 +4,8 @@
 #include <memory>
 #include <vector>
 
+#include "discretization_method.hpp"
+
 namespace tf_core
 {
     class CoreTransferFunction;
@@ -30,6 +32,9 @@ namespace tf_core
 
             const CoefficientsVector & GetNum(void) const;
             const CoefficientsVector & GetDen(void) const;
+
+            TransferFunction Discretize(const float discretization_time,
+                const DiscretizationMethod discretization_method);
 
         private:
             explicit TransferFunction(const CoreTransferFunction & core_tf);

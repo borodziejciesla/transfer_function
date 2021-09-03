@@ -4,6 +4,7 @@
 
 #include "core_transfer_function.hpp"
 #include "polynomial.hpp"
+#include "transfer_function_discretizer.hpp"
 
 namespace tf_core
 {
@@ -59,4 +60,8 @@ namespace tf_core
         return den_->GetCoefficients();
     }
 
+    TransferFunction TransferFunction::Discretize(const float discretization_time, const DiscretizationMethod discretization_method) {
+        auto discrete_tf = tf_core::TransferFunctionDiscretizer::Discretize(*tf_, discretization_time, discretization_method);
+        return TransferFunction(discrete_tf);
+    }
 }   //  namespace tf_core
