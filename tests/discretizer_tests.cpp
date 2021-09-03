@@ -285,29 +285,29 @@ TEST_P(TransferFunctionDiscretizerTests, TestFirstOrderTransferFunction) {
     auto den = tf_core::Polynomial({1.0f, 2.0f});
     auto tf = tf_core::CoreTransferFunction(num, den);
 
-    auto discretization_time = 0.5f;
+    auto discretization_time = 1.0f;
     auto method = GetParam();
 
     switch (GetParam()) {
         case tf_core::DiscretizationMethod::Forward:
         {
             auto tf_discrete = tf_core::TransferFunctionDiscretizer::Discretize(tf, discretization_time, method);
-            EXPECT_EQ(tf_discrete.GetNum(), num);
-            EXPECT_EQ(tf_discrete.GetDen(), tf_core::Polynomial({1.0f}));
+            EXPECT_EQ(tf_discrete.GetNum(), tf_core::Polynomial({1.0f}));
+            EXPECT_EQ(tf_discrete.GetDen(), tf_core::Polynomial({-1.0f, 2.0f}));
             break;
         }
         case tf_core::DiscretizationMethod::Backward:
         {
             auto tf_discrete = tf_core::TransferFunctionDiscretizer::Discretize(tf, discretization_time, method);
-            EXPECT_EQ(tf_discrete.GetNum(), num);
-            EXPECT_EQ(tf_discrete.GetDen(), tf_core::Polynomial({1.0f}));
+            EXPECT_EQ(tf_discrete.GetNum(), tf_core::Polynomial({0.0f, 1.0f}));
+            EXPECT_EQ(tf_discrete.GetDen(), tf_core::Polynomial({-2.0f, 3.0f}));
             break;
         }
         case tf_core::DiscretizationMethod::Tustin:
         {
             auto tf_discrete = tf_core::TransferFunctionDiscretizer::Discretize(tf, discretization_time, method);
-            EXPECT_EQ(tf_discrete.GetNum(), num);
-            EXPECT_EQ(tf_discrete.GetDen(), tf_core::Polynomial({1.0f}));
+            EXPECT_EQ(tf_discrete.GetNum(), tf_core::Polynomial({1.0f, 1.0f}));
+            EXPECT_EQ(tf_discrete.GetDen(), tf_core::Polynomial({-3.0f, 5.0f}));
             break;
         }
         default:
