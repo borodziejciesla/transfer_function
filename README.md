@@ -5,8 +5,8 @@
 # transfer_function
 This is C++ library which provides set of opertions on transfer functions.
 Those are operations like:
-  * calculate transfer functions of series/parrallel/feedback connection (in future),
-  * discretize transfer function (in future),
+  * calculate transfer functions of series/parrallel/feedback connection,
+  * discretize transfer function,
   * analyse stability (in future),
   * calculate step/impulse response (in future),
   * calculate Bode/Nyquist plot (in future),
