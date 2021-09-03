@@ -19,6 +19,7 @@ namespace tf_core
     {
         public:
             CoreTransferFunction(void) = delete;
+            CoreTransferFunction(const CoreTransferFunction & obj) = default;
             CoreTransferFunction(const Polynomial & num, const Polynomial & den);
             ~CoreTransferFunction(void) = default;
 
