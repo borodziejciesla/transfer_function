@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.12)
 
-add_library(tf
+add_library(tf OBJECT
     src/core_transfer_function.cpp
 )
 
