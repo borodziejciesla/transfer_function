@@ -25,27 +25,27 @@ namespace tf_core
 
         std::transform(input_signal.begin(), input_signal.end(), output_signal.begin(),
             [&](float input) {
-                std::rotate(input_history.begin(), input_history.begin() + 1u, input_history.end());
-                input_history.at(0u) = input;
+                std::rotate(input_history.rbegin(), input_history.rbegin() + 1u, input_history.rend());
+                *input_history.rbegin() = input;
 
+                auto index = 0u;
                 auto input_sum = std::accumulate(input_history.begin(), input_history.end(), 0.0f,
-                    [=] (float result, float input) {
-                        static auto index = 0u;
+                    [=, &index] (float result, float input) {
                         return result + input * tf.GetNum().GetCoefficients().at(index++);
                     }
                 );
 
+                index = 0u;
                 auto output_sum = std::accumulate(output_history.begin(), output_history.end(), 0.0f,
-                    [=] (float result, float output) {
-                        static auto index = 0u;
+                    [=, &index] (float result, float output) {
                         return result + output * tf.GetDen().GetCoefficients().at(index++);
                     }
                 );
 
-                auto output = (input_sum - output_sum) / tf.GetDen().GetCoefficients().at(0u);
+                auto output = (input_sum - output_sum) / *(tf.GetDen().GetCoefficients().end() - 1u);
 
-                std::rotate(output_history.begin(), output_history.begin() + 1u, output_history.end());
-                output_history.at(0u) = output;
+                std::rotate(output_history.rbegin(), output_history.rbegin() + 1u, output_history.rend());
+                *output_history.rbegin() = output;
 
                 return output;
             }
