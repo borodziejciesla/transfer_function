@@ -27,7 +27,9 @@ auto tf = tf_core::TransferFunction(num, den);
 ---
 ### Connect Transfer Functions
 * Parallel
+ 
 ![parallel](https://user-images.githubusercontent.com/44383270/132103271-ec31b6c7-91a4-4671-a71b-27064fa24d38.PNG)
+
 ```cpp
 // Prepare TF
 auto G = tf_core::TransferFunction(num_g, den_g);
@@ -38,7 +40,9 @@ auto parallel_connection = G + H;
 auto parallel_connection = G.Parallel(H);
 ```
 * Serial
+
 ![serial](https://user-images.githubusercontent.com/44383270/132103279-a8f55723-878e-42fc-bc0e-01e899a65bb1.PNG)
+
 ```cpp
 // Prepare TF
 auto G = tf_core::TransferFunction(num_g, den_g);
@@ -49,7 +53,9 @@ auto serial_connection = G * H;
 auto serial_connection = G.Serial(H);
 ```
 * Feedback
+
 ![feedback](https://user-images.githubusercontent.com/44383270/132103285-fabc907e-1c9c-470b-bf58-558857f3275e.PNG)
+
 ```cpp
 // Prepare TF
 auto G = tf_core::TransferFunction(num_g, den_g);
