@@ -76,7 +76,7 @@ float sampling_time = 0.01f;
 auto discretization_method = tf_core::DiscretizationMethod::Tustin;
 
 // Discretize
-auto output_signal = G.Simulate(input_signal);
+auto discrete_G = G.Discretize(sampling_time, discretization_method);
 ```
 ---
 ### Simulate
