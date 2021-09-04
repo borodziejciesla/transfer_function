@@ -60,6 +60,19 @@ auto feedback_connection = G.Feedback(H);
 auto feedback_connection = G.Feedback(H, true);
 ```
 ---
+### Discretize
+```cpp
+//Define TF
+auto G = tf_core::TransferFunction(num_g, den_g);
+
+// Define discretization time and method
+float sampling_time = 0.01f;
+auto discretization_method = tf_core::DiscretizationMethod::Tustin;
+
+// Discretize
+auto output_signal = G.Simulate(input_signal);
+```
+---
 ### Simulate
 ```cpp
 //Define TF
