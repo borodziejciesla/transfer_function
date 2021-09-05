@@ -157,3 +157,43 @@ TEST_F(TransferFunctionTests, TestDiscretization) {
     EXPECT_EQ(tf_discrete_tustin.GetNum(), expected_tustin_num);
     EXPECT_EQ(tf_discrete_tustin.GetDen(), expected_tustin_den);
 }
+
+TEST_F(TransferFunctionTests, TestFirstOrderStepResponse) {
+    tf_core::TransferFunction::CoefficientsVector num = {1.0f};
+    tf_core::TransferFunction::CoefficientsVector den = {1.0f, 2.0f};
+    auto tf = tf_core::TransferFunction(num, den);
+
+    const auto vector_size = 24u;
+    std::vector<float> input_signal(vector_size, 1.0f);
+    auto output_signal = tf.SimulateDiscrete(input_signal, 1.0f);
+
+    std::vector<float> expected_output {
+        0.200000000000000f,
+        0.520000000000000f,
+        0.712000000000000f,
+        0.827200000000000f,
+        0.896320000000000f,
+        0.937792000000000f,
+        0.962675200000000f,
+        0.977605120000000f,
+        0.986563072000000f,
+        0.991937843200000f,
+        0.995162705920000f,
+        0.997097623552000f,
+        0.998258574131200f,
+        0.998955144478720f,
+        0.999373086687232f,
+        0.999623852012339f,
+        0.999774311207403f,
+        0.999864586724442f,
+        0.999918752034665f,
+        0.999951251220799f,
+        0.999970750732480f,
+        0.999982450439488f,
+        0.999989470263693f,
+        0.999993682158216f
+    };
+
+    for (auto idx = 0u; idx < vector_size; idx++)
+        EXPECT_FLOAT_EQ(expected_output.at(idx), output_signal.at(idx));
+}

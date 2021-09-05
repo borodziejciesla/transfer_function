@@ -3,6 +3,7 @@
 #include <tuple>
 
 #include "core_transfer_function.hpp"
+#include "discrete_simulator.hpp"
 #include "polynomial.hpp"
 #include "transfer_function_discretizer.hpp"
 
@@ -60,8 +61,13 @@ namespace tf_core
         return den_->GetCoefficients();
     }
 
-    TransferFunction TransferFunction::Discretize(const float discretization_time, const DiscretizationMethod discretization_method) {
+    TransferFunction TransferFunction::Discretize(const float discretization_time, const DiscretizationMethod discretization_method) const {
         auto discrete_tf = tf_core::TransferFunctionDiscretizer::Discretize(*tf_, discretization_time, discretization_method);
         return TransferFunction(discrete_tf);
+    }
+
+    Signal TransferFunction::SimulateDiscrete(const Signal & input_signal, const float sampling_time) const {
+        auto discrete_tf = Discretize(sampling_time, DiscretizationMethod::Tustin);
+        return DiscreteSimulator::Simulate(*discrete_tf.tf_, input_signal);
     }
 }   //  namespace tf_core

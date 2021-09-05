@@ -11,6 +11,8 @@ namespace tf_core
     class CoreTransferFunction;
     class Polynomial;
 
+    using Signal = std::vector<float>;
+
     class TransferFunction
     {
         public:
@@ -34,7 +36,9 @@ namespace tf_core
             const CoefficientsVector & GetDen(void) const;
 
             TransferFunction Discretize(const float discretization_time,
-                const DiscretizationMethod discretization_method);
+                const DiscretizationMethod discretization_method) const;
+            
+            Signal SimulateDiscrete(const Signal & input_signal, const float sampling_time) const;
 
         private:
             explicit TransferFunction(const CoreTransferFunction & core_tf);
