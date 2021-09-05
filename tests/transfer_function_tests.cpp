@@ -210,6 +210,19 @@ TEST_F(TransferFunctionTests, TestToString) {
     EXPECT_EQ(result, expected);
 }
 
+TEST_F(TransferFunctionTests, TestToString2) {
+    tf_core::TransferFunction::CoefficientsVector num = {1.0f, 2.0f, 3.0f};
+    tf_core::TransferFunction::CoefficientsVector den = {1.0f, 1.0f};
+    auto tf = tf_core::TransferFunction(num, den);
+
+    auto result = tf.ToString();
+
+    auto expected = std::string("3.000000 s^2 + 2.000000 s + 1.000000\n------------------------------------\n       1.000000 s + 1.000000       ");
+
+    EXPECT_EQ(result, expected);
+}
+
+
 TEST_F(TransferFunctionTests, TestStep) {
     tf_core::TransferFunction::CoefficientsVector num = {1.0f};
     tf_core::TransferFunction::CoefficientsVector den = {1.0f, 2.0f};

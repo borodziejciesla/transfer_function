@@ -249,3 +249,17 @@ TEST_F(PolynomialTests, TestToString) {
     auto expected_b = std::string("-10.000000 s^3 + 9.000000 s^2 + 6.000000 s + 3.000000");
     EXPECT_EQ(result, expected);
 }
+
+TEST_F(PolynomialTests, TestIsStable) {
+    tf_core::Polynomial a({3.0f, 6.0f});
+    EXPECT_TRUE(a.IsStable());
+
+    tf_core::Polynomial b({3.0f, -6.0f});
+    EXPECT_FALSE(b.IsStable());
+
+    tf_core::Polynomial c({1.0f, 1.0f, 3.0f, 6.0f});
+    EXPECT_FALSE(c.IsStable());
+
+    tf_core::Polynomial d({1.0f, 2.0f, 1.0f});
+    EXPECT_TRUE(d.IsStable());
+}

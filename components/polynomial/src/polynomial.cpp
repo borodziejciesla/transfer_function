@@ -157,6 +157,36 @@ namespace tf_core
         }
     }
 
+    bool Polynomial::IsStable(void) const {
+        if (auto first_negative = std::find_if(coefficients_.begin(), coefficients_.end(), [](float coefficient){ return coefficient <= 0.0f; }); 
+            first_negative != coefficients_.end()) {
+            return false;
+        } else {
+            for (auto index = 0u; index < GetPolynomialOrder(); index++) {
+                auto sub_hurwitz = GetSubHurwitzianMatrixWithOrder(index);
+                auto determinant = sub_hurwitz.determinant();
+                if (determinant <= 0.0f)
+                    return false;
+            }
+            return true;
+        }
+    }
+
+    Eigen::MatrixXf Polynomial::GetSubHurwitzianMatrixWithOrder(const size_t order) const {
+        auto sub_hurwitz = Eigen::MatrixXf(order, order);
+        
+        auto get_element = [this](int n) { return ((n >= 0) && (n < static_cast<int>(GetPolynomialOrder()))) ? coefficients_.at(n) : 0.0f; };
+
+        for (auto row = 0; row < static_cast<int>(order); row++) {
+            auto index = static_cast<int>(GetPolynomialOrder()) - 1 - (2 * row);
+            for (auto col = 0; col < static_cast<int>(order); col++) {
+                sub_hurwitz(col, row) = get_element(index + col);
+            }
+        }
+
+        return sub_hurwitz;
+    }
+
     std::string Polynomial::ToString(void) const {
         std::string output = "";
         auto idx = 0u;
