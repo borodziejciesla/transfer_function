@@ -272,3 +272,11 @@ TEST_F(TransferFunctionTests, TestImpulse) {
     for (auto idx = 0u; idx < expected.size(); idx++)
         EXPECT_FLOAT_EQ(impulse_response.at(idx), expected.at(idx));
 }
+
+TEST_F(TransferFunctionTests, TestIsStable) {
+    tf_core::TransferFunction::CoefficientsVector num = {1.0f};
+    tf_core::TransferFunction::CoefficientsVector den = {1.0f, 2.0f};
+    auto tf = tf_core::TransferFunction(num, den);
+
+    EXPECT_TRUE(tf.IsStable());
+}
