@@ -5,6 +5,7 @@
 # Transfer Function Library
 ***
 ## Overview
+---
 This is C++ library which provides set of opertions on transfer functions.
 Those are operations like:
   * calculate transfer functions of series/parrallel/feedback connection,
@@ -14,6 +15,22 @@ Those are operations like:
   * calculate Bode/Nyquist plot (in future),
   * simulation of discrete transfer function (in future). 
 
+---
+### Development enironment
+* Programming language:
+  * C++20 standard - g++10.3 or higher
+* Build system:
+  * CMake 3.12 or higher
+* Static code analysis:
+  * cppcheck 1.90 or higher
+  * pygments
+* Test coverage:
+  * gcov
+  * lcov
+* Coding style check
+  * cpplint 1.5.5 or higher
+
+***
 ## Usage
 ---
 ### Create Transfer Function
