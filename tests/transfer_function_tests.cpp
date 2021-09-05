@@ -209,3 +209,53 @@ TEST_F(TransferFunctionTests, TestToString) {
 
     EXPECT_EQ(result, expected);
 }
+
+TEST_F(TransferFunctionTests, TestStep) {
+    tf_core::TransferFunction::CoefficientsVector num = {1.0f};
+    tf_core::TransferFunction::CoefficientsVector den = {1.0f, 2.0f};
+    auto tf = tf_core::TransferFunction(num, den);
+
+    auto response_length = 1.0f;
+    auto step_response = tf.Step(response_length);
+
+    tf_core::Signal expected = {
+        0.002493765586035f,
+        0.007468859024509f,
+        0.012419139029374f,
+        0.017344729358404f,
+        0.022245753152128f,
+        0.027122332936905f,
+        0.031974590627993f,
+        0.036802647532592f,
+        0.041606624352878f,
+        0.046386641189023f
+    };
+
+    for (auto idx = 0u; idx < expected.size(); idx++)
+        EXPECT_FLOAT_EQ(step_response.at(idx), expected.at(idx));
+}
+
+TEST_F(TransferFunctionTests, TestImpulse) {
+    tf_core::TransferFunction::CoefficientsVector num = {1.0f};
+    tf_core::TransferFunction::CoefficientsVector den = {1.0f, 2.0f};
+    auto tf = tf_core::TransferFunction(num, den);
+
+    auto response_length = 1.0f;
+    auto impulse_response = tf.Impulse(response_length);
+
+    tf_core::Signal expected = {
+        0.249376558603491f,
+        0.497509343847364f,
+        0.495028000486529f,
+        0.492559032903055f,
+        0.490102379372367f,
+        0.487657978477742f,
+        0.485225769108775f,
+        0.482805690459854f,
+        0.480397682028632f,
+        0.478001683614524f
+    };
+
+    for (auto idx = 0u; idx < expected.size(); idx++)
+        EXPECT_FLOAT_EQ(impulse_response.at(idx), expected.at(idx));
+}
