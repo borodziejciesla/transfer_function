@@ -11,9 +11,9 @@ Those are operations like:
   * calculate transfer functions of series/parrallel/feedback connection,
   * discretize transfer function,
   * analyse stability (in future),
-  * calculate step/impulse response (in future),
+  * calculate step/impulse response,
   * calculate Bode/Nyquist plot (in future),
-  * simulation of discrete transfer function (in future). 
+  * simulation of discrete transfer function. 
 
 ---
 ### Development enironment
