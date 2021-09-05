@@ -235,3 +235,17 @@ TEST_F(PolynomialTests, TestPowerTwo) {
     auto expected_result = tf_core::Polynomial({9.0f, 36.0f, 36.0f});
     EXPECT_EQ(result, expected_result);
 }
+
+TEST_F(PolynomialTests, TestToString) {
+    tf_core::Polynomial a({3.0f, 6.0f});
+    auto result = a.ToString();
+
+    auto expected = std::string("6.000000 s + 3.000000");
+    EXPECT_EQ(result, expected);
+
+    tf_core::Polynomial b({3.0f, 6.0f, 9.0f, -10.0f});
+    auto result_b = b.ToString();
+
+    auto expected_b = std::string("-10.000000 s^3 + 9.000000 s^2 + 6.000000 s + 3.000000");
+    EXPECT_EQ(result, expected);
+}

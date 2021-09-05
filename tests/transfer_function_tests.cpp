@@ -197,3 +197,15 @@ TEST_F(TransferFunctionTests, TestFirstOrderStepResponse) {
     for (auto idx = 0u; idx < vector_size; idx++)
         EXPECT_FLOAT_EQ(expected_output.at(idx), output_signal.at(idx));
 }
+
+TEST_F(TransferFunctionTests, TestToString) {
+    tf_core::TransferFunction::CoefficientsVector num = {1.0f, 1.0f};
+    tf_core::TransferFunction::CoefficientsVector den = {1.0f, 2.0f, 3.0f};
+    auto tf = tf_core::TransferFunction(num, den);
+
+    auto result = tf.ToString();
+
+    auto expected = std::string("       1.000000 s + 1.000000       \n------------------------------------\n3.000000 s^2 + 2.000000 s + 1.000000");
+
+    EXPECT_EQ(result, expected);
+}
