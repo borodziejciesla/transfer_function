@@ -11,6 +11,7 @@
 #define TRANSFER_FUNCTION_COMPONENTS_POLYNOMIAL_INCLUDE_POLYNOMIAL_HPP_
 
 #include <vector>
+#include <string>
 
 namespace tf_core
 {
@@ -50,6 +51,8 @@ namespace tf_core
 
             const Coefficients & GetCoefficients(void) const;
             size_t GetPolynomialOrder(void) const;
+
+            std::string ToString(void) const;
 
         private:
             void ReduceUnnecessaryElements(void);
