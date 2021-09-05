@@ -70,4 +70,37 @@ namespace tf_core
         auto discrete_tf = Discretize(sampling_time, DiscretizationMethod::Tustin);
         return DiscreteSimulator::Simulate(*discrete_tf.tf_, input_signal);
     }
+
+    std::string TransferFunction::ToString(void) const {
+        auto num_string = num_->ToString();
+        auto num_string_length = static_cast<int>(num_string.size());
+
+        auto den_string = den_->ToString();
+        auto den_string_length = static_cast<int>(den_string.size());
+        
+        auto length_difference = std::abs(den_string_length - num_string_length);
+        auto offset_size = length_difference / 2u;
+        auto line_size = std::max(num_string_length, den_string_length);
+
+        std::string output("");
+        auto offset = std::string(offset_size, ' ');
+        auto line = std::string(line_size, '-');
+
+        if (num_string_length < den_string_length) {
+            output.append(offset + num_string + offset);
+            output.append("\n");
+            output.append(line);
+            output.append("\n");
+            output.append(den_string);
+        }
+        else {
+            output.append(num_string);
+            output.append("\n");
+            output.append(line);
+            output.append("\n");
+            output.append(offset + den_string + offset);
+        }
+
+        return output;
+    }
 }   //  namespace tf_core

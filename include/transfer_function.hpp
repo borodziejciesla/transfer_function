@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <vector>
+#include <string>
 
 #include "discretization_method.hpp"
 
@@ -39,6 +40,8 @@ namespace tf_core
                 const DiscretizationMethod discretization_method) const;
             
             Signal SimulateDiscrete(const Signal & input_signal, const float sampling_time) const;
+
+            std::string ToString(void) const;
 
         private:
             explicit TransferFunction(const CoreTransferFunction & core_tf);
