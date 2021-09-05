@@ -13,6 +13,8 @@
 #include <vector>
 #include <string>
 
+#include <Eigen/Dense>
+
 namespace tf_core
 {
     class Polynomial
@@ -52,10 +54,13 @@ namespace tf_core
             const Coefficients & GetCoefficients(void) const;
             size_t GetPolynomialOrder(void) const;
 
+            bool IsStable(void) const;
+
             std::string ToString(void) const;
 
         private:
             void ReduceUnnecessaryElements(void);
+            Eigen::MatrixXf GetSubHurwitzianMatrixWithOrder(const size_t order) const;
 
             Coefficients coefficients_;
     };

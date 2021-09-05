@@ -94,6 +94,11 @@ namespace tf_core
         return DiscreteSimulator::Simulate(*discrete_tf.tf_, input_signal);
     }
 
+
+    bool TransferFunction::IsStable(void) const {
+        return den_->IsStable();
+    }
+
     std::string TransferFunction::ToString(void) const {
         auto num_string = num_->ToString();
         auto num_string_length = static_cast<int>(num_string.size());

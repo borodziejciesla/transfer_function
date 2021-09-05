@@ -43,6 +43,8 @@ namespace tf_core
             Signal Step(float simulation_time) const;
             Signal Impulse(float simulation_time) const;
 
+            bool IsStable(void) const;
+
             std::string ToString(void) const;
 
         private:
