@@ -37,9 +37,11 @@ namespace tf_core
             const CoefficientsVector & GetDen(void) const;
 
             TransferFunction Discretize(const float discretization_time,
-                const DiscretizationMethod discretization_method) const;
+                const DiscretizationMethod discretization_method = DiscretizationMethod::Tustin) const;
             
             Signal SimulateDiscrete(const Signal & input_signal, const float sampling_time) const;
+            Signal Step(float simulation_time) const;
+            Signal Impulse(float simulation_time) const;
 
             std::string ToString(void) const;
 

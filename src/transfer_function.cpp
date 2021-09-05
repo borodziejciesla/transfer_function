@@ -67,7 +67,30 @@ namespace tf_core
     }
 
     Signal TransferFunction::SimulateDiscrete(const Signal & input_signal, const float sampling_time) const {
-        auto discrete_tf = Discretize(sampling_time, DiscretizationMethod::Tustin);
+        auto discrete_tf = Discretize(sampling_time);
+        return DiscreteSimulator::Simulate(*discrete_tf.tf_, input_signal);
+    }
+
+    Signal TransferFunction::Step(float simulation_time) const {
+        float characteristics_samples_number_ = 100.0f;
+
+        auto sampling_time = simulation_time / 100.0f;
+        auto discrete_tf = Discretize(sampling_time);
+        
+        auto input_signal = Signal(static_cast<size_t>(characteristics_samples_number_), 1.0f);
+
+        return DiscreteSimulator::Simulate(*discrete_tf.tf_, input_signal);
+    }
+
+    Signal TransferFunction::Impulse(float simulation_time) const {
+        float characteristics_samples_number_ = 100.0f;
+
+        auto sampling_time = simulation_time / 100.0f;
+        auto discrete_tf = Discretize(sampling_time);
+        
+        auto input_signal = Signal(static_cast<size_t>(characteristics_samples_number_), 0.0f);
+        input_signal.at(0u) = 100.0f;
+        
         return DiscreteSimulator::Simulate(*discrete_tf.tf_, input_signal);
     }
 
