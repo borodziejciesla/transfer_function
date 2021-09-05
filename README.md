@@ -10,7 +10,7 @@ This is C++ library which provides set of opertions on transfer functions.
 Those are operations like:
   * calculate transfer functions of series/parrallel/feedback connection,
   * discretize transfer function,
-  * analyse stability (in future),
+  * analyse stability,
   * calculate step/impulse response,
   * calculate Bode/Nyquist plot (in future),
   * simulation of discrete transfer function. 
