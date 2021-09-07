@@ -10,13 +10,17 @@
 #ifndef TRANSFER_FUNCTION_COMPONENTS_FREQUENCY_ANALYSIS_COMPLEX_TRANSFER_FUNCTION_HPP_
 #define TRANSFER_FUNCTION_COMPONENTS_FREQUENCY_ANALYSIS_COMPLEX_TRANSFER_FUNCTION_HPP_
 
-#include <tuple>
+#include <vector>
 
 #include "core_transfer_function.hpp"
 #include "complex.hpp"
 
 namespace tf_core
 {
+    using Frequencies = std::vector<float>;
+    using Characteristic = std::vector<std::pair<float, float>>;
+    using ComplexCharacteristic = std::vector<Complex>;
+
     class ComplexTransferFunction
     {
         public:
@@ -24,9 +28,13 @@ namespace tf_core
             ComplexTransferFunction(void) = delete;
             ~ComplexTransferFunction(void) = default;
 
-            Complex operator()(const float w) const;
+            Characteristic CalculateBode(const Frequencies & omega) const;
+            Characteristic CalculateNyquist(const Frequencies & omega) const;
 
         private:
+            ComplexCharacteristic CalculateCharacteristics(const Frequencies & omega) const;
+            Complex CalculateValue(const float w) const;
+
             CoreTransferFunction tf_;
     };
 }   //  namespace tf_core

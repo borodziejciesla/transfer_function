@@ -9,6 +9,7 @@
 
 #include "complex_transfer_function.hpp"
 
+#include <algorithm>
 #include <numeric>
 
 namespace tf_core
@@ -17,7 +18,41 @@ namespace tf_core
         : tf_{tf} {
     }
 
-    Complex  ComplexTransferFunction::operator()(const float w) const {
+    Characteristic ComplexTransferFunction::CalculateBode(const Frequencies & omega) const {
+        auto complex_characteristic = CalculateCharacteristics(omega);
+
+        Characteristic bode_characteristic(omega.size());
+        std::transform(complex_characteristic.begin(), complex_characteristic.end(), bode_characteristic.begin(),
+            [](const Complex v) {
+                return std::pair<float, float>(v.Abs(), v.Phase());
+            }
+        );
+    }
+
+    Characteristic ComplexTransferFunction::CalculateNyquist(const Frequencies & omega) const {
+        auto complex_characteristic = CalculateCharacteristics(omega);
+
+        Characteristic bode_characteristic(omega.size());
+        std::transform(complex_characteristic.begin(), complex_characteristic.end(), bode_characteristic.begin(),
+            [](const Complex v) {
+                return std::pair<float, float>(v.Real(), v.Img());
+            }
+        );
+    }
+
+    ComplexCharacteristic ComplexTransferFunction::CalculateCharacteristics(const Frequencies & omega) const {
+        ComplexCharacteristic characteristic(omega.size());
+
+        std::transform(omega.begin(), omega.end(), characteristic.begin(),
+            [this](const float w) {
+                return CalculateValue(w);
+            }
+        );
+
+        return characteristic;
+    }
+
+    Complex  ComplexTransferFunction::CalculateValue(const float w) const {
         const auto omega = Complex(0.0f, w);
 
         auto num = std::accumulate(tf_.GetNum().GetCoefficients().begin(), tf_.GetNum().GetCoefficients().end(), Complex(0.0f, 0.0f),
