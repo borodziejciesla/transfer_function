@@ -39,11 +39,16 @@ namespace tf_core
             Complex Power(const int power) const;
             Complex operator^(const int power) const;
 
-            float Abs(void) const;
+            bool operator==(const Complex & rhs) const;
+            bool operator!=(const Complex & rhs) const;
+
             Complex Conjugate(void) const;
 
             float Real(void) const;
             float Img(void) const;
+
+            float Abs(void) const;
+            float Phase(void) const;
 
         private:
             float real_ = 0.0f;
