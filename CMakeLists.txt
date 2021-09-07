@@ -37,6 +37,7 @@ add_library(${PROJECT_NAME}
     src/transfer_function.cpp
 
     $<TARGET_OBJECTS:c2d>
+    $<TARGET_OBJECTS:frequency_analysis>
     $<TARGET_OBJECTS:polynomial>
     $<TARGET_OBJECTS:simulation>
     $<TARGET_OBJECTS:tf>
@@ -47,6 +48,7 @@ target_include_directories(${PROJECT_NAME}
         include
     PRIVATE
         $<TARGET_PROPERTY:c2d,INTERFACE_INCLUDE_DIRECTORIES>
+        $<TARGET_PROPERTY:frequency_analysis,INTERFACE_INCLUDE_DIRECTORIES>
         $<TARGET_PROPERTY:polynomial,INTERFACE_INCLUDE_DIRECTORIES>
         $<TARGET_PROPERTY:simulation,INTERFACE_INCLUDE_DIRECTORIES>
         $<TARGET_PROPERTY:tf,INTERFACE_INCLUDE_DIRECTORIES>

@@ -86,8 +86,12 @@ namespace tf_core
         return this->Power(power);
     }
 
-    float Complex::Abs(void) const {
-        return std::hypot(Real(), Img());
+    bool Complex::operator==(const Complex & rhs) const {
+        return ((this->Real() == rhs.Real()) && (this->Img() == rhs.Img()));
+    }
+
+    bool Complex::operator!=(const Complex & rhs) const {
+        return !((*this) == rhs);
     }
 
     Complex Complex::Conjugate(void) const {
@@ -100,5 +104,13 @@ namespace tf_core
 
     float Complex::Img(void) const {
         return img_;
+    }
+
+    float Complex::Abs(void) const {
+        return std::hypot(Real(), Img());
+    }
+
+    float Complex::Phase(void) const {
+        return std::atan2(Img(), Real());
     }
 }   //  namespace tf_core
