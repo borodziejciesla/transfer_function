@@ -13,6 +13,7 @@
 #include <tuple>
 
 #include "core_transfer_function.hpp"
+#include "complex.hpp"
 
 namespace tf_core
 {
@@ -23,7 +24,7 @@ namespace tf_core
             ComplexTransferFunction(void) = delete;
             ~ComplexTransferFunction(void) = default;
 
-            std::tuple<float, float> operator()(const float w) const;
+            Complex operator()(const float w) const;
 
         private:
             CoreTransferFunction tf_;

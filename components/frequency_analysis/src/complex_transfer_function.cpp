@@ -11,15 +11,13 @@
 
 #include <numeric>
 
-#include "complex.hpp"
-
 namespace tf_core
 {
     ComplexTransferFunction::ComplexTransferFunction(const CoreTransferFunction & tf)
         : tf_{tf} {
     }
 
-    std::tuple<float, float>  ComplexTransferFunction::operator()(const float w) const {
+    Complex  ComplexTransferFunction::operator()(const float w) const {
         const auto omega = Complex(0.0f, w);
 
         auto num = std::accumulate(tf_.GetNum().GetCoefficients().begin(), tf_.GetNum().GetCoefficients().end(), Complex(0.0f, 0.0f),
@@ -42,8 +40,6 @@ namespace tf_core
             }
         );
 
-        auto value = num / den;
-
-        return std::make_tuple(value.Real(), value.Img());
+        return (num / den);
     }
 }   //  namespace tf_core
