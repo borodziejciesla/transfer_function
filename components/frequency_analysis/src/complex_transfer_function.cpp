@@ -27,17 +27,21 @@ namespace tf_core
                 return std::pair<float, float>(v.Abs(), v.Phase());
             }
         );
+
+        return bode_characteristic;
     }
 
     Characteristic ComplexTransferFunction::CalculateNyquist(const Frequencies & omega) const {
         auto complex_characteristic = CalculateCharacteristics(omega);
 
-        Characteristic bode_characteristic(omega.size());
-        std::transform(complex_characteristic.begin(), complex_characteristic.end(), bode_characteristic.begin(),
+        Characteristic nyquist_characteristic(omega.size());
+        std::transform(complex_characteristic.begin(), complex_characteristic.end(), nyquist_characteristic.begin(),
             [](const Complex v) {
                 return std::pair<float, float>(v.Real(), v.Img());
             }
         );
+
+        return nyquist_characteristic;
     }
 
     ComplexCharacteristic ComplexTransferFunction::CalculateCharacteristics(const Frequencies & omega) const {
@@ -55,21 +59,23 @@ namespace tf_core
     Complex  ComplexTransferFunction::CalculateValue(const float w) const {
         const auto omega = Complex(0.0f, w);
 
-        auto num = std::accumulate(tf_.GetNum().GetCoefficients().begin(), tf_.GetNum().GetCoefficients().end(), Complex(0.0f, 0.0f),
-            [=](Complex sum, const float coefficient) {
-                static int pow = 0;
-
-                auto w_power = omega^pow;
+        auto init_num = Complex(0.0f, 0.0f);
+        int pow_num = 0;
+        auto num = std::accumulate(tf_.GetNum().GetCoefficients().begin(), tf_.GetNum().GetCoefficients().end(), init_num,
+            [=,&pow_num](Complex sum, const float coefficient) {
+                auto w_power = omega^pow_num;
+                pow_num++;
 
                 return (sum + w_power * coefficient);
             }
         );
 
-        auto den = std::accumulate(tf_.GetDen().GetCoefficients().begin(), tf_.GetDen().GetCoefficients().end(), Complex(0.0f, 0.0f),
-            [=](Complex sum, const float coefficient) {
-                static int pow = 0;
-
-                auto w_power = omega^pow;
+        auto init_den = Complex(0.0f, 0.0f);
+        int pow_den = 0;
+        auto den = std::accumulate(tf_.GetDen().GetCoefficients().begin(), tf_.GetDen().GetCoefficients().end(), init_den,
+            [=,&pow_den](Complex sum, const float coefficient) {
+                auto w_power = omega^pow_den;
+                pow_den++;
 
                 return (sum + w_power * coefficient);
             }
