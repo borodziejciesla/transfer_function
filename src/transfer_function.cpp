@@ -2,6 +2,7 @@
 
 #include <tuple>
 
+#include "complex_transfer_function.hpp"
 #include "core_transfer_function.hpp"
 #include "discrete_simulator.hpp"
 #include "polynomial.hpp"
@@ -12,7 +13,8 @@ namespace tf_core
     TransferFunction::TransferFunction(const std::vector<float> & num, const std::vector<float> & den)
         : num_{std::make_unique<Polynomial>(num)}
         , den_{std::make_unique<Polynomial>(den)}
-        , tf_{std::make_unique<CoreTransferFunction>(*num_, *den_)} {
+        , tf_{std::make_unique<CoreTransferFunction>(*num_, *den_)}
+        , ctf_{std::make_unique<ComplexTransferFunction>(*tf_)} {
         std::ignore = num;
         std::ignore = den;
     }
@@ -94,6 +96,13 @@ namespace tf_core
         return DiscreteSimulator::Simulate(*discrete_tf.tf_, input_signal);
     }
 
+    FrequencyCharacteristic TransferFunction::Bode(const std::vector<float> & omega) const {
+        return ctf_->CalculateBode(omega);
+    }
+
+    FrequencyCharacteristic TransferFunction::Nyquist(const std::vector<float> & omega) const {
+        return ctf_->CalculateNyquist(omega);
+    }
 
     bool TransferFunction::IsStable(void) const {
         return den_->IsStable();

@@ -2,6 +2,10 @@
 [![Build Status](https://app.travis-ci.com/borodziejciesla/transfer_function.svg?branch=main)](https://app.travis-ci.com/borodziejciesla/transfer_function)
 [![codecov](https://codecov.io/gh/borodziejciesla/transfer_function/branch/main/graph/badge.svg?token=A1E2F7U1A4)](https://codecov.io/gh/borodziejciesla/transfer_function)
 
+![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/githubactions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white)
+![TravisCI](https://img.shields.io/badge/travisci-%232B2F33.svg?style=for-the-badge&logo=travis&logoColor=white)
+
 # Transfer Function Library
 ***
 ## Overview

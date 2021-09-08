@@ -9,10 +9,12 @@
 
 namespace tf_core
 {
+    class ComplexTransferFunction;
     class CoreTransferFunction;
     class Polynomial;
 
     using Signal = std::vector<float>;
+    using FrequencyCharacteristic = std::vector<std::pair<float, float>>;
 
     class TransferFunction
     {
@@ -45,6 +47,9 @@ namespace tf_core
 
             bool IsStable(void) const;
 
+            FrequencyCharacteristic Bode(const std::vector<float> & omeha) const;
+            FrequencyCharacteristic Nyquist(const std::vector<float> & omeha) const;
+
             std::string ToString(void) const;
 
         private:
@@ -53,6 +58,7 @@ namespace tf_core
             std::unique_ptr<Polynomial> num_;
             std::unique_ptr<Polynomial> den_;
             std::unique_ptr<CoreTransferFunction> tf_;
+            std::unique_ptr<ComplexTransferFunction> ctf_;
     };
 }   //  namespace tf_core
 
