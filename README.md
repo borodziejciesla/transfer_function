@@ -16,7 +16,7 @@ Those are operations like:
   * discretize transfer function,
   * analyse stability,
   * calculate step/impulse response,
-  * calculate Bode/Nyquist plot (in future),
+  * calculate Bode/Nyquist plot,
   * simulation of discrete transfer function. 
 
 ---
