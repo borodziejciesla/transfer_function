@@ -158,8 +158,8 @@ namespace tf_core
     }
 
     bool Polynomial::IsStable(void) const {
-        if (auto first_negative = std::find_if(coefficients_.begin(), coefficients_.end(), [](float coefficient){ return coefficient <= 0.0f; }); 
-            first_negative != coefficients_.end()) {
+        auto first_negative = std::find_if(coefficients_.begin(), coefficients_.end(), [](float coefficient){ return coefficient <= 0.0f; });
+        if (first_negative != coefficients_.end()) {
             return false;
         } else {
             for (auto index = 0u; index < GetPolynomialOrder(); index++) {
