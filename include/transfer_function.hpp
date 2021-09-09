@@ -3,13 +3,18 @@
 
 #include <memory>
 #include <vector>
+#include <string>
 
 #include "discretization_method.hpp"
 
 namespace tf_core
 {
+    class ComplexTransferFunction;
     class CoreTransferFunction;
     class Polynomial;
+
+    using Signal = std::vector<float>;
+    using FrequencyCharacteristic = std::vector<std::pair<float, float>>;
 
     class TransferFunction
     {
@@ -34,7 +39,18 @@ namespace tf_core
             const CoefficientsVector & GetDen(void) const;
 
             TransferFunction Discretize(const float discretization_time,
-                const DiscretizationMethod discretization_method);
+                const DiscretizationMethod discretization_method = DiscretizationMethod::Tustin) const;
+            
+            Signal SimulateDiscrete(const Signal & input_signal, const float sampling_time) const;
+            Signal Step(float simulation_time) const;
+            Signal Impulse(float simulation_time) const;
+
+            bool IsStable(void) const;
+
+            FrequencyCharacteristic Bode(const std::vector<float> & omeha) const;
+            FrequencyCharacteristic Nyquist(const std::vector<float> & omeha) const;
+
+            std::string ToString(void) const;
 
         private:
             explicit TransferFunction(const CoreTransferFunction & core_tf);
@@ -42,6 +58,7 @@ namespace tf_core
             std::unique_ptr<Polynomial> num_;
             std::unique_ptr<Polynomial> den_;
             std::unique_ptr<CoreTransferFunction> tf_;
+            std::unique_ptr<ComplexTransferFunction> ctf_;
     };
 }   //  namespace tf_core
 

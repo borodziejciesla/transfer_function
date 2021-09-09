@@ -156,4 +156,76 @@ namespace tf_core
             // Do nothing
         }
     }
+
+    bool Polynomial::IsStable(void) const {
+        if (auto first_negative = std::find_if(coefficients_.begin(), coefficients_.end(), [](float coefficient){ return coefficient <= 0.0f; }); 
+            first_negative != coefficients_.end()) {
+            return false;
+        } else {
+            for (auto index = 0u; index < GetPolynomialOrder(); index++) {
+                auto sub_hurwitz = GetSubHurwitzianMatrixWithOrder(index);
+                auto determinant = sub_hurwitz.determinant();
+                if (determinant <= 0.0f)
+                    return false;
+            }
+            return true;
+        }
+    }
+
+    Eigen::MatrixXf Polynomial::GetSubHurwitzianMatrixWithOrder(const size_t order) const {
+        auto sub_hurwitz = Eigen::MatrixXf(order, order);
+        
+        auto get_element = [this](int n) { return ((n >= 0) && (n < static_cast<int>(GetPolynomialOrder()))) ? coefficients_.at(n) : 0.0f; };
+
+        for (auto row = 0; row < static_cast<int>(order); row++) {
+            auto index = static_cast<int>(GetPolynomialOrder()) - 1 - (2 * row);
+            for (auto col = 0; col < static_cast<int>(order); col++) {
+                sub_hurwitz(col, row) = get_element(index + col);
+            }
+        }
+
+        return sub_hurwitz;
+    }
+
+    std::string Polynomial::ToString(void) const {
+        std::string output = "";
+        auto idx = 0u;
+        std::for_each(coefficients_.rbegin(), coefficients_.rend(),
+            [&](float coeficient) {
+                auto sign = (coeficient < 0.0f) ? std::string(" - ") : std::string(" + ");
+                auto abs_coefficient = std::to_string(std::abs(coeficient));
+                auto power = coefficients_.size() - 1u - idx;
+
+                if (idx != 0u)
+                {
+                    output.append(sign);
+                    output.append(abs_coefficient);
+                }
+                else
+                {
+                    output.append(std::to_string(coeficient));
+                }                
+
+                switch (power)
+                {
+                    case 0u:
+                    {
+                        break;
+                    }
+                    case 1:
+                    {
+                        output.append(std::string(" s"));
+                        break;
+                    }
+                    default:
+                    {
+                        output.append(std::string(" s^")).append(std::to_string(power));
+                    }
+                }
+                idx++;
+            }
+        );
+
+        return output;
+    }
 }   // tf_core

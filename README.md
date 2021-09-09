@@ -2,18 +2,39 @@
 [![Build Status](https://app.travis-ci.com/borodziejciesla/transfer_function.svg?branch=main)](https://app.travis-ci.com/borodziejciesla/transfer_function)
 [![codecov](https://codecov.io/gh/borodziejciesla/transfer_function/branch/main/graph/badge.svg?token=A1E2F7U1A4)](https://codecov.io/gh/borodziejciesla/transfer_function)
 
+![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/githubactions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white)
+![TravisCI](https://img.shields.io/badge/travisci-%232B2F33.svg?style=for-the-badge&logo=travis&logoColor=white)
+
 # Transfer Function Library
 ***
 ## Overview
+---
 This is C++ library which provides set of opertions on transfer functions.
 Those are operations like:
   * calculate transfer functions of series/parrallel/feedback connection,
   * discretize transfer function,
-  * analyse stability (in future),
-  * calculate step/impulse response (in future),
-  * calculate Bode/Nyquist plot (in future),
-  * simulation of discrete transfer function (in future). 
+  * analyse stability,
+  * calculate step/impulse response,
+  * calculate Bode/Nyquist plot,
+  * simulation of discrete transfer function. 
 
+---
+### Development enironment
+* Programming language:
+  * C++20 standard - g++10.3 or higher
+* Build system:
+  * CMake 3.12 or higher
+* Static code analysis:
+  * cppcheck 1.90 or higher
+  * pygments
+* Test coverage:
+  * gcov
+  * lcov
+* Coding style check
+  * cpplint 1.5.5 or higher
+
+***
 ## Usage
 ---
 ### Create Transfer Function

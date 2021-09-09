@@ -11,6 +11,9 @@
 #define TRANSFER_FUNCTION_COMPONENTS_POLYNOMIAL_INCLUDE_POLYNOMIAL_HPP_
 
 #include <vector>
+#include <string>
+
+#include <Eigen/Dense>
 
 namespace tf_core
 {
@@ -51,8 +54,13 @@ namespace tf_core
             const Coefficients & GetCoefficients(void) const;
             size_t GetPolynomialOrder(void) const;
 
+            bool IsStable(void) const;
+
+            std::string ToString(void) const;
+
         private:
             void ReduceUnnecessaryElements(void);
+            Eigen::MatrixXf GetSubHurwitzianMatrixWithOrder(const size_t order) const;
 
             Coefficients coefficients_;
     };
