@@ -5,6 +5,7 @@ cmake_minimum_required(VERSION 3.12 FATAL_ERROR)
 
 set(PROJECT_NAME transfer_function)
 set(TEST_PROJECT_NAME ${PROJECT_NAME}_tests)
+set(EXAMPLE_PROJECT_NAME ${PROJECT_NAME}_example)
 
 project(${PROJECT_NAME})
 
@@ -16,7 +17,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(DEFAULT_BUILD_TYPE "Debug")
 
 if (CMAKE_COMPILER_IS_GNUCC)
-    set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wpedantic -g -O0 -fprofile-arcs -ftest-coverage")
+    set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -Werror -Wall -Wextra -Wpedantic -g -O0 -fprofile-arcs -ftest-coverage")
 endif()
 if (MSVC)
     set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} /W4")
@@ -25,6 +26,7 @@ endif()
 set(CMAKE_CXX_OUTPUT_EXTENSION_REPLACE ON)
 
 option(BUILD_TESTS "Build tests" ON)
+option(BUILD_EXAMPLE "Build example" OFF)
 option(MAKE_CPPCHECK "Make static code analysis" OFF)
 option(MAKE_CPPLINT "Make code style analysis" OFF)
 
@@ -78,6 +80,15 @@ if(UNIX)
         ) 
     endif() # CMAKE_BUILD_TYPE STREQUAL "Coverage"
 endif() # UNIX
+
+###############################################
+################# Examples ####################
+###############################################
+if(BUILD_EXAMPLE)
+    project(${EXAMPLE_PROJECT_NAME})
+    
+    add_subdirectory(examples)
+endif() # BUILD_EXAMPLE
 
 ###############################################
 ################ Unit Tests ###################
