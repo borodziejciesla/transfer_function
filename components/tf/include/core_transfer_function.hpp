@@ -7,8 +7,8 @@
  * this file. If not, please write to: , or visit :
  */
 
-#ifndef TRANSFER_FUNCTION_COMPONENTS_POLYNOMIAL_CORE_TRANSFER_FUNCTION_HPP_
-#define TRANSFER_FUNCTION_COMPONENTS_POLYNOMIAL_CORE_TRANSFER_FUNCTION_HPP_
+#ifndef COMPONENTS_TF_INCLUDE_CORE_TRANSFER_FUNCTION_HPP_
+#define COMPONENTS_TF_INCLUDE_CORE_TRANSFER_FUNCTION_HPP_
 
 #include "polynomial.hpp"
 #include "polynomial_discretizer.hpp"
@@ -42,4 +42,4 @@ namespace tf_core
     };
 }   //  namespace tf_core
 
-#endif // !TRANSFER_FUNCTION_COMPONENTS_POLYNOMIAL_CORE_TRANSFER_FUNCTION_HPP_
+#endif // COMPONENTS_TF_INCLUDE_CORE_TRANSFER_FUNCTION_HPP_

@@ -13,6 +13,13 @@ if(UNIX AND MAKE_CPPCHECK)
             list(REMOVE_ITEM ALL_SOURCE_FILES ${SOURCE_FILE})
         endif ()
 
+        # Exclude eigen
+        set(EXCUDED_DIR "eigen")
+        string(FIND ${SOURCE_FILE} ${EXCUDED_DIR} PROJECT_TRDPARTY_DIR_FOUND)
+        if (NOT ${PROJECT_TRDPARTY_DIR_FOUND} EQUAL -1)
+            list(REMOVE_ITEM ALL_SOURCE_FILES ${SOURCE_FILE})
+        endif ()
+
         # Exclude other
         set(EXCUDED_DIR "CMakeCXXCompilerId.cpp")
         string(FIND ${SOURCE_FILE} ${EXCUDED_DIR} PROJECT_TRDPARTY_DIR_FOUND)
@@ -37,6 +44,7 @@ if(UNIX AND MAKE_CPPCHECK)
                 --inline-suppr
                 --force
                 #--output-file=${CMAKE_SOURCE_DIR}/cppcheck_output.txt
+                --suppress=missingInclude
                 --xml
                 --xml-version=2
                 2> ${CMAKE_CURRENT_BINARY_DIR}/cppcheck_output.xml

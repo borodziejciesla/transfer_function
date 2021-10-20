@@ -1,3 +1,12 @@
+/* Copyright (C) 2021 Maciej Rozewicz - All Rights Reserved
+ * You may use, distribute and modify this code under the
+ * terms of the XYZ license, which unfortunately won't be
+ * written for another century.
+ *
+ * You should have received a copy of the XYZ license with
+ * this file. If not, please write to: , or visit :
+ */
+
 #include "polynomial.hpp"
 
 #include <algorithm>
@@ -158,8 +167,8 @@ namespace tf_core
     }
 
     bool Polynomial::IsStable(void) const {
-        if (auto first_negative = std::find_if(coefficients_.begin(), coefficients_.end(), [](float coefficient){ return coefficient <= 0.0f; }); 
-            first_negative != coefficients_.end()) {
+        auto first_negative = std::find_if(coefficients_.begin(), coefficients_.end(), [](float coefficient){ return coefficient <= 0.0f; });
+        if (first_negative != coefficients_.end()) {
             return false;
         } else {
             for (auto index = 0u; index < GetPolynomialOrder(); index++) {
@@ -228,4 +237,4 @@ namespace tf_core
 
         return output;
     }
-}   // tf_core
+}  // namespace tf_core
